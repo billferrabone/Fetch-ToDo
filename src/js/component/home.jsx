@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
@@ -8,7 +8,7 @@ const Home = () => {
 
 	const [todo, setTodo] = useState('')
 	const [listOfTodos, setListOfTodos] = useState([])
-
+	const myInput = useRef()
 
 	const obtenerDatos = () => {
 		fetch('https://assets.breatheco.de/apis/fake/todos/user/billferrabone')
@@ -28,6 +28,7 @@ const Home = () => {
 	const addTodo = () => {
 		setListOfTodos([...listOfTodos, todo])
 		setTodo('')
+		myInput.current.value=""
 	}
 
 
@@ -73,7 +74,7 @@ const Home = () => {
 		<div className="container text-center w-50 bg-light text-dark mt-3">
 			<form>
 				<h1 className="p-1">FetchTodoApp</h1>
-				<input type="text" className="bg-light m-2 " onChange={(e) => {crearTodo(e)}} />
+				<input type="text" ref={myInput} className="bg-light m-2 " onChange={(e) => {crearTodo(e)}} />
 				<button type="button" className="btn btn-outline btn-primary" onClick={addTodo}>Añadir tarea</button>
 			</form>
 			<ul className="list-group list-group-flush">
